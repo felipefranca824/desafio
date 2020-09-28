@@ -47,13 +47,14 @@ public class GameController {
                 round.setCountMax(getHigherRecord(rounds));
             }
 
-        //     if(verifyIfScoreIsSmaller(findSmallerRound(rounds), game.getScore())){
-        //         round.setMinSeason(game.getScore());
-        //         round.setCountMin(getSmallerRecord(rounds) + 1);
-        //     }else{
-        //         round.setMinSeason(findSmallerRound(rounds).getMinSeason());
-        //         round.setCountMin(getSmallerRecord(rounds));
-        //     }
+            if(verifyIfScoreIsSmaller(findSmallerRound(rounds), game.getScore())){
+                round.setMinSeason(game.getScore());
+                round.setMaxSeason(findHigherRound(rounds).getMaxSeason());
+                round.setCountMin(getSmallerRecord(rounds) + 1);
+            }else{
+                round.setMinSeason(findSmallerRound(rounds).getMinSeason());
+                round.setCountMin(getSmallerRecord(rounds));
+            }
 
         }else{
             round.setCountMax(0);
@@ -62,11 +63,11 @@ public class GameController {
             round.setMinSeason(game.getScore());
         }
 
-        // game.setRound(round);
-        // round.setGame(game);
+        round.setGame(game);
+        game.setRound(round);
 
         roundRepository.save(round);
-        // gameRepository.save(game);
+        gameRepository.save(game);
         return "redirect:/";
     }
 
@@ -116,11 +117,11 @@ public class GameController {
     }
 
     private int getSmallerRecord(List<Round> rounds){
-        int smaller = Integer.MAX_VALUE;
+        int smaller = 0;
 
         for (Round round : rounds) {
-            if(round.getCountMax() < smaller){
-                smaller = round.getCountMax();
+            if(round.getCountMin() > smaller){
+                smaller = round.getCountMin();
             }
         }
 

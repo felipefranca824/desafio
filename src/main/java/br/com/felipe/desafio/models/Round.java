@@ -1,5 +1,6 @@
 package br.com.felipe.desafio.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,7 +12,7 @@ public class Round {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @OneToOne(mappedBy = "round")
+    @OneToOne(mappedBy = "round", cascade = CascadeType.ALL)
     private Game game;
 
     private int minSeason;
