@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Game {
@@ -14,19 +14,15 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private int score;
-    private int maximumScore;
-    private int minimumScore;
-    private int countRecordMaximum;
-    private int countRecordMinimum;
-    @ManyToOne
-    @JoinColumn(name = "season_id", nullable = false)
-    private Season season;
+    @OneToOne
+    @JoinColumn(name = "round_id")
+    private Round round;
     
-    public Season getSeason() {
-        return season;
+    public Round getRoud() {
+        return round;
     }
-    public void setSeason(Season season) {
-        this.season = season;
+    public void setRound(Round round) {
+        this.round = round;
     }
 
     public int getScore() {
@@ -35,38 +31,6 @@ public class Game {
 
     public void setScore(int score) {
         this.score = score;
-    }
-
-    public int getMaximumScore() {
-        return maximumScore;
-    }
-
-    public void setMaximumScore(int maximumScore) {
-        this.maximumScore = maximumScore;
-    }
-
-    public int getMinimumScore() {
-        return minimumScore;
-    }
-
-    public void setMinimumScore(int minimumScore) {
-        this.minimumScore = minimumScore;
-    }
-
-    public int getCountRecordMaximum() {
-        return countRecordMaximum;
-    }
-
-    public void setCountRecordMaximum(int countRecordMaximum) {
-        this.countRecordMaximum = countRecordMaximum;
-    }
-
-    public int getCountRecordMinimum() {
-        return countRecordMinimum;
-    }
-
-    public void setCountRecordMinimum(int countRecordMinimum) {
-        this.countRecordMinimum = countRecordMinimum;
     }
 
     public long getId() {
