@@ -6,6 +6,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Game {
@@ -13,6 +17,10 @@ public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @NotEmpty
+    @Min(0)
+    @Max(1000)
+    @Size(min = 1, max = 4, message = "Digite entre 1 e 4 digitos")
     private int score;
     @OneToOne
     @JoinColumn(name = "round_id")

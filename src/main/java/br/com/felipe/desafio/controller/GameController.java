@@ -2,6 +2,8 @@ package br.com.felipe.desafio.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,8 +33,7 @@ public class GameController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public String save(Game game){
-        System.out.println(game.getScore());
+    public String save(@Valid Game game){
         List<Round> rounds = roundRepository.findAll();
         Round round = new Round();
 
