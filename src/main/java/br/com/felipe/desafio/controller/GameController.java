@@ -5,7 +5,9 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,13 +29,29 @@ public class GameController {
     @Autowired
     RoundRepository roundRepository;
 
+    @RequestMapping(value = "/table", method = RequestMethod.GET)
+    public ModelAndView listGames(){
+        ModelAndView mv = new ModelAndView("game/listGames.html");
+        Iterable<Game> games = gameRepository.findAll();
+
+        mv.addObject("games", games);
+        return mv;
+    }
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index() {
         return new ModelAndView("game/index.html");
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public String save(@Valid Game game){
+    public ModelAndView save(@Valid Game game, BindingResult result){
+        ModelAndView mv;
+        if(result.hasErrors()){
+            mv = new ModelAndView("game/index");
+            mv.setStatus(HttpStatus.BAD_REQUEST);
+            return mv;
+        }
+       
         List<Round> rounds = roundRepository.findAll();
         Round round = new Round();
 
@@ -68,8 +86,11 @@ public class GameController {
         game.setRound(round);
 
         roundRepository.save(round);
+        System.out.println("################################ Salvou Round ############");
         gameRepository.save(game);
-        return "redirect:/";
+        mv = new ModelAndView("redirect:/table");
+        mv.setStatus(HttpStatus.OK);
+        return mv;
     }
 
     private Round findHigherRound(List<Round> rounds){
@@ -78,6 +99,7 @@ public class GameController {
 
         for (int i = 0; i < rounds.size(); i++) {
             if(rounds.get(i).getMaxSeason() > higher){
+                higher = rounds.get(i).getMaxSeason();
                 position = i;
             }
         }
@@ -90,6 +112,7 @@ public class GameController {
 
         for (int i = 0; i < rounds.size(); i++) {
             if(rounds.get(i).getMinSeason() < smaller){
+                smaller = rounds.get(i).getMinSeason();
                 position = i;
             }
         }
@@ -102,7 +125,7 @@ public class GameController {
     }
 
     private boolean verifyIfScoreIsSmaller(Round round, int score){
-        return round.getMaxSeason() > score;
+        return round.getMinSeason() > score;
     }
 
     private int getHigherRecord(List<Round> rounds){

@@ -8,11 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class Round {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -20,22 +19,18 @@ public class Round {
     @OneToOne(mappedBy = "round", cascade = CascadeType.ALL)
     private Game game;
 
-    @NotEmpty
     @Min(0)
     @Max(1000)
     private int minSeason;
 
-    @NotEmpty
     @Min(0)
     @Max(1000)
     private int maxSeason;
 
-    @NotEmpty
     @Min(0)
     @Max(1000)
     private int countMax;
 
-    @NotEmpty
     @Min(0)
     @Max(1000)
     private int countMin;
