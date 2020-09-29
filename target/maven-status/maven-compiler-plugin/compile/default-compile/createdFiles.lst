@@ -1,0 +1,6 @@
+br/com/felipe/desafio/DesafioApplication.class
+br/com/felipe/desafio/repository/GameRepository.class
+br/com/felipe/desafio/models/Game.class
+br/com/felipe/desafio/repository/RoundRepository.class
+br/com/felipe/desafio/models/Round.class
+br/com/felipe/desafio/controller/GameController.class

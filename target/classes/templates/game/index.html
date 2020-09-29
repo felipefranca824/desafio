@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="materialize-v1.0.0/materialize/css/materialize.min.css"  media="screen,projection"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <nav>
+        <div class="nav-wrapper container">
+          <a href="/" class="brand-logo">Desafio</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="/table">Lista</a></li>
+          </ul>
+        </div>
+      </nav>
+    <div class="container">
+        <form method="POST"  name="form" id="form">
+            <label for="score" id="labelScore">Pontos</label>
+            <input type="text" name="score" id="score" placeholder="Ex.: 25" required>
+            <div class="row">
+                <span class="red-text text-darken-2" id="message"></span>
+            </div>
+            <button class="btn waves-effect waves-light col s1 offset-s11" type="button" onclick="validator();" name="action">Enviar
+                <i class="material-icons right">send</i>
+              </button>
+        </form>
+    </div>
+    
+    <script type="text/javascript" src="materialize-v1.0.0/materialize/js/materialize.min.js"></script>
+    <script src="js/validator.js"></script>
+</body>
+</html>
